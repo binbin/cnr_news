@@ -1,0 +1,8 @@
+http://10.48.14.28:8053/eapdomain/j_unieap_security_check.do?j_password=47fc8ec3e54ded92d2f35c6d0f2d1ead30d7ad3026a62b8383569b91f18a40c755063e68058c083d910e0b7b9839a17fbeb39ba86e6ec7bce50f9abef2f596354a8fdc4869bc048bc10f3942cbc58884d67c60dee08ca5a67a096ac2cea9e73f27c8cb91705dd22e6e21c63fc594f960e3845a68f7a0409d44895093539bd8d8&j_username=15040402&mimayanzheng=0	
+
+http://10.48.14.28:8053/eapdomain/unieap/pages/index.jsp
+
+
+http://10.48.14.28:8053/eapdomain/querydispatchaction.do?method=exec&queryaction=doQuery&BUSINESS_ID=UCA251&BUSINESS_REQUEST_ID=REQ-AE-M-553-00&CUSTOMVPDPARA=SI_TYPE~1~VAR&MENUID=1241397922968
+
+{header:{"code": -100, "message": {"title": "", "detail": ""}},body:{dataStores:{unieap_query_instance:{rowSet:{"primary":[{"AC01AC02.AAC999":null,"AC01AC02.AAC003":null,"AC01AC02.AAE135":"150404195901200054","AC01AC02.AAZ500":null,"AC01AC02.AAB999":null,"AC01AC02.AAB004":null,"_t":"1"}],"filter":[],"delete":[]},name:"unieap_query_instance",pageNumber:1,pageSize:500,recordCount:1}},parameters:{"instanceStoreName": "unieap_query_instance", "mode": 2, "viewId": "nm_ac01ac02_perunit_query", "queryDefId": "nm_ac01ac02_perunit_query", "tempId": "nm_ac01ac02_infoquery"}}}
