@@ -22,6 +22,8 @@ content_search=re.compile(r'id=sina_keyword_ad_area2>(.*?)<DIV class="articalLis
 content_search2=re.compile(r'id=sina_keyword_ad_area2>(.*?)</DIV>', re.S).search
 content_search3=re.compile(r'id="read_tpc">(.*?)</td>', re.S).search
 
+content_replace=re.compile(r">.*?陈建军.*?<", re.S)
+content_replace_a=re.compile(r'<a.*?</a>',re.S)
 
 
 # list_pattern=re.compile(r'<li><span class="left ml20">(.*?)</a>\n</span>', re.S)
@@ -96,6 +98,10 @@ def createContent(lists,file_name):
             print item['link']
             continue
           content=matche.group(1).decode('utf-8').encode('gbk')
+
+          content=content_replace.sub('><',content)
+          content=content_replace_a.sub('',content)
+
           article="<h3>%s</h3>%s"%(item["title"],content)
           articles.append(article)
       except Exception as e:
@@ -116,11 +122,11 @@ if __name__ == '__main__':
   print start
   print u'开始下载'
   urllist=[]
-  for i in range(1,8):
+  for i in range(1,2):
      urllist.append('http://www.cjjms.net/list.php?fid=56&page=%s'%i)
   print urllist
   lists=get_list(urllist)
-  createContent(lists,u'面试题')
+  createContent(lists,u'面试题2')
   end=time.time()
   print u'全部下载完毕,共用时%s'%(end-start)
 
