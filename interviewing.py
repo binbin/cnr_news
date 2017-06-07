@@ -15,6 +15,11 @@ sys.setdefaultencoding('utf8')
 
 socket.setdefaulttimeout(120)
 
+from html_minifier.minify import Minifier
+minifier = Minifier()
+
+
+
 list_pattern=re.compile(r'<a(.*?)style="font-size:14px;color:#07519A;">', re.S)
 list_get_title_search=re.compile(r"title='(.*?)'", re.S).search
 list_get_link_search=re.compile(r'href="(.*?)"', re.S).search
@@ -22,8 +27,8 @@ content_search=re.compile(r'id=sina_keyword_ad_area2>(.*?)<DIV class="articalLis
 content_search2=re.compile(r'id=sina_keyword_ad_area2>(.*?)</DIV>', re.S).search
 content_search3=re.compile(r'id="read_tpc">(.*?)</td>', re.S).search
 
-content_replace=re.compile(r">.*?陈建军.*?<", re.S)
-content_replace_a=re.compile(r'<a.*?</a>',re.S)
+content_replace=re.compile(u">.*?陈建军.*?<", re.S)
+content_replace_a=re.compile(u'<a.*?</a>',re.S)
 
 
 # list_pattern=re.compile(r'<li><span class="left ml20">(.*?)</a>\n</span>', re.S)
@@ -99,11 +104,16 @@ def createContent(lists,file_name):
             continue
           content=matche.group(1).decode('utf-8').encode('gbk')
 
-          content=content_replace.sub('><',content)
-          content=content_replace_a.sub('',content)
+          
 
-          article="<h3>%s</h3>%s"%(item["title"],content)
-          articles.append(article)
+          article="<div><h3>%s</h3>%s</div>"%(item["title"],content)
+
+          minifier.html = article
+          article = minifier.minify().replace("'",'"')
+
+          sql="insert into content (title,content,type_id) values('%s','%s',3); \n"%(item["title"],article)
+
+          articles.append(sql)
       except Exception as e:
           print e
 
@@ -114,7 +124,13 @@ def createContent(lists,file_name):
   # print a
   book_content=r'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><title> %s </title></head><body> %s </body></html>'%(file_name,''.join(articles).decode('gbk','ignore').encode('utf-8'))
   # f=open("%s-%s.html"%(b,e),'w')
-  f=open("%s.html"%file_name,'w')
+
+  book_content=content_replace.sub('><',book_content)
+  book_content=content_replace_a.sub('',book_content)
+  book_content=book_content.decode('utf-8','ignore').encode('gbk')
+
+
+  f=open("%s.sql"%file_name,'w')
   f.write(book_content)
   f.close()
 if __name__ == '__main__':
@@ -122,11 +138,11 @@ if __name__ == '__main__':
   print start
   print u'开始下载'
   urllist=[]
-  for i in range(1,2):
+  for i in range(1,79):
      urllist.append('http://www.cjjms.net/list.php?fid=56&page=%s'%i)
   print urllist
   lists=get_list(urllist)
-  createContent(lists,u'面试题2')
+  createContent(lists,u'面试题')
   end=time.time()
   print u'全部下载完毕,共用时%s'%(end-start)
 
