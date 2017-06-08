@@ -94,7 +94,7 @@ def createContent(lists,file_name):
               article = minifier.minify().replace("'",'"')
               sql="insert into content (title,content,type_id) values('%s','%s',1); \n"%(item["title"],article)
 
-              articles.append(sql)
+              articles.insert(0,sql)
           else:
             print 'not matche'
       except Exception as e:

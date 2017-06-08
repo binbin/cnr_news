@@ -115,7 +115,7 @@ def createContent(lists,file_name):
         # article=content.decode('gbk','ignore').encode('utf-8')
         # print content
         # print item["title"].decode('gbk','ignore').encode('utf-8')
-        articles.append(sql)
+        articles.insert(0,sql)
       except:
         print item
   # b=file_name_search(list[0]["link_add"]).group(0).replace('/','')

@@ -111,9 +111,9 @@ def createContent(lists,file_name):
           minifier.html = article
           article = minifier.minify().replace("'",'"')
 
-          sql="insert into content (title,content,type_id) values('%s','%s',3); \n"%(item["title"],article)
+          sql="insert into content (title,content,type_id) values('%s','%s',5); \n"%(item["title"],article)
 
-          articles.append(sql)
+          articles.insert(0,sql)
       except Exception as e:
           print e
 
@@ -122,12 +122,15 @@ def createContent(lists,file_name):
   # e=file_name_search(list[-1]["link_add"]).group(0).replace('/','')
   # a=''.join(articles)
   # print a
-  book_content=r'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><title> %s </title></head><body> %s </body></html>'%(file_name,''.join(articles).decode('gbk','ignore').encode('utf-8'))
+  # book_content=r'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><title> %s </title></head><body> %s </body></html>'%(file_name,''.join(articles).decode('gbk','ignore').encode('utf-8'))
+  
+  book_content=''.join(articles).decode('gbk','ignore').encode('utf-8')
   # f=open("%s-%s.html"%(b,e),'w')
 
   book_content=content_replace.sub('><',book_content)
   book_content=content_replace_a.sub('',book_content)
-  book_content=book_content.decode('utf-8','ignore').encode('gbk')
+
+  # book_content=book_content.decode('utf-8','ignore').encode('gbk')
 
 
   f=open("%s.sql"%file_name,'w')

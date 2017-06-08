@@ -1387,7 +1387,7 @@ for i in l:
   article = minifier.minify().replace("'",'"')
   sql="insert into content (title,content,type_id) values('%s','%s',1); \n"%(title,article)
 
-  articles.append(sql)
+  articles.insert(0,sql)
 
 book_content=''.join(articles).decode('gbk','ignore').encode('utf-8')
 # f=open("%s-%s.html"%(b,e),'w')
