@@ -141,11 +141,11 @@ if __name__ == '__main__':
   print start
   print u'开始下载'
   urllist=[]
-  for i in range(1,79):
+  for i in range(1,2):
      urllist.append('http://www.cjjms.net/list.php?fid=56&page=%s'%i)
   print urllist
   lists=get_list(urllist)
-  createContent(lists,u'面试题')
+  createContent(lists,u'面试题0615')
   end=time.time()
   print u'全部下载完毕,共用时%s'%(end-start)
 

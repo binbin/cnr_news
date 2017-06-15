@@ -117,11 +117,11 @@ if __name__ == '__main__':
   print u'开始下载'
   urllist=['http://china.cnr.cn/yaowen/']
   # for i in range(1,15):
-  for i in range(1,100):
+  for i in range(1,35):
      urllist.append('http://china.cnr.cn/yaowen/index_%s.html'%i)
   print urllist
   lists=get_list(urllist)
-  createContent(lists,u'纵横点评20170607')
+  createContent(lists,u'纵横点评20170615')
   end=time.time()
   print u'全部下载完毕,共用时%s'%(end-start)
 
